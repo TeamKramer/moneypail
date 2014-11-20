@@ -1,65 +1,66 @@
 require 'rails_helper'
 
 feature "Authorizations" do
- scenario "sign up" do
-  
-  create_user "test@test.com", "usertest"
+  scenario "sign up" do
 
-  expect(page).to have_content("user account created")
+    create_user "test@test.com", "usertest"
 
- end
- 
- scenario "log in" do
+    expect(page).to have_content("user account created")
 
-  create_user "test@test.com", "usertest"
-  
-  log_in_with "test@test.com", "usertest"
+  end
 
-  expect(page).to have_content("Welcome test@test.com")
+  scenario "log in" do
 
-end
+    create_user "test@test.com", "usertest"
+    log_out
 
-scenario "log out" do
+    log_in_with "test@test.com", "usertest"
 
-  create_user "test@test.com", "usertest"
-  log_in_with "test@test.com", "usertest"
+    expect(page).to have_content("Welcome test@test.com")
 
-  log_out
+  end
 
-  expect(page).to have_content("You have sucessfully logged out")
+  scenario "log out" do
 
-end
+    create_user "test@test.com", "usertest"
+    log_in_with "test@test.com", "usertest"
+
+    log_out
+
+    expect(page).to have_content("You have sucessfully logged out")
+
+  end
 
 
-def create_user username, password
+  def create_user username, password
 
-  visit root_path
+    visit root_path
 
-  click_on "Sign up"
+    click_on "Sign up"
 
-  fill_in "email", with: username
-  fill_in "password", with: password
-  fill_in "password verification", with: password
-  click_button "Sign up"
-  user = User.find_by(email: username)
-  user.confirm!
-  
-end
+    fill_in "Email", with: username
+    fill_in "Password", with: password
+    fill_in "Password confirmation", with: password
+    click_button "Sign up"
+    # user = User.find_by(email: username)
+    # user.confirm!
 
-def log_in_with username, password
+  end
 
-  visit root_path
-  click_on "Sign in"
-  fill_in "email", with: username
-  fill_in "password", with: password
-  click_button "Sign in"
+  def log_in_with username, password
 
-end
+    visit root_path
+    click_on "Login"
+    fill_in "email", with: username
+    fill_in "password", with: password
+    click_button "Sign in"
 
-def log_out
+  end
 
-  visit root_path
-  click_on "Sign Out"
+  def log_out
 
-end
+    visit root_path
+    click_on "Logout"
+
+  end
 end

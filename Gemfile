@@ -10,6 +10,7 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'better_errors'
 end
 
 group :development, :test do
@@ -23,6 +24,8 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
+
+gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
