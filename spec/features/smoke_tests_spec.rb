@@ -7,7 +7,7 @@ require 'rails_helper'
 
 feature "SmokeTest" do
   scenario "see welcome page" do
-    visit 'welcome#index'
+    visit root_path 
 
     expect(page).to have_content("Moneypail")
   end
