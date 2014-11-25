@@ -5,8 +5,7 @@ feature "Authorizations" do
 
     create_user "test@test.com", "usertest"
 
-    expect(page).to have_content("user account created")
-
+    expect(page).to have_content("Welcome! You have signed up successfully.")
   end
 
   scenario "log in" do
@@ -16,18 +15,19 @@ feature "Authorizations" do
 
     log_in_with "test@test.com", "usertest"
 
-    expect(page).to have_content("Welcome test@test.com")
+    expect(page).to have_content("Signed in successfully.")
 
   end
 
   scenario "log out" do
 
     create_user "test@test.com", "usertest"
-    log_in_with "test@test.com", "usertest"
-
     log_out
 
-    expect(page).to have_content("You have sucessfully logged out")
+    log_in_with "test@test.com", "usertest"
+    log_out
+
+    expect(page).to have_content("Signed out successfully.")
 
   end
 
@@ -51,8 +51,8 @@ feature "Authorizations" do
 
     visit root_path
     click_on "Login"
-    fill_in "email", with: username
-    fill_in "password", with: password
+    fill_in "Email", with: username
+    fill_in "Password", with: password
     click_button "Sign in"
 
   end
